@@ -1,0 +1,70 @@
+volumes:
+  mysql:
+    name: mysql
+    driver: local
+  redis:
+    name: redis
+    driver: local
+  pma:
+    name: pma
+    driver: local
+
+services:
+
+  application:
+    container_name: application
+    image: yiisoftware/yii2-php:8.5-fpm-nginx
+    restart: always
+    links:
+      - mysql
+      - redis
+    ports:
+      - "80:80"
+    volumes:
+      # Re-use local composer cache via host-volume
+      - ~/.composer-docker/cache:/root/.composer/cache:delegated
+      # Mount source-code for development
+      - ./:/app
+      # Nginx configs
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+
+  mysql:
+    container_name: mysql
+    image: mysql:9.6
+    ports:
+      - "3306:3306"
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=secret_root_password
+      - MYSQL_DATABASE=yii2db
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=secret_user_password
+    volumes:
+      - mysql:/var/lib/mysql
+      - ./docker/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+
+  redis:
+    container_name: redis
+    image: redis:latest
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis:/data
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin:latest
+    links:
+      - mysql
+    environment:
+      - PMA_HOST=mysql
+      - PMA_PORT=3306
+      - PMA_USER=root
+      - PMA_PASSWORD=secret_root_password
+      - UPLOAD_LIMIT=300M
+    restart: always
+    ports:
+      - "81:80"
+    volumes:
+      - pma:/data
