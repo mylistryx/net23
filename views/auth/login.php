@@ -2,7 +2,7 @@
 /**
  * @var View $this
  * @var ActiveForm $form
- * @var \app\forms\Auth\LoginForm $model
+ * @var LoginForm $model
  */
 
 use app\forms\Auth\LoginForm;

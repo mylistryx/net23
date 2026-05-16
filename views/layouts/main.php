@@ -32,32 +32,57 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
 <?php $this->beginBody() ?>
 
 <header id="header">
-    <?php
-    NavBar::begin([
-        'brandLabel' => Yii::$app->name,
-        'brandUrl'   => Yii::$app->homeUrl,
-        'options'    => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top'],
-    ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav'],
-        'items'   => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
-            Yii::$app->user->isGuest
-                ? ['label' => 'Login', 'url' => ['/site/login']]
-                : '<li class="nav-item">'
-                . Html::beginForm(['/site/logout'])
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'nav-link btn btn-link logout'],
-                )
-                . Html::endForm()
-                . '</li>',
-        ],
-    ]);
-    NavBar::end();
-    ?>
+    <?php NavBar::begin([
+            'brandLabel' => Yii::$app->name,
+            'brandUrl'   => Yii::$app->homeUrl,
+            'options'    => ['class' => 'navbar-expand-md navbar-dark bg-dark fixed-top'],
+    ]); ?>
+    <?= Nav::widget([
+            'options' => [
+                    'class' => [
+                            'navbar-nav',
+                            'me-auto',
+                    ],
+            ],
+            'items'   => [
+                    [
+                            'label' => Yii::t('app', 'Home'),
+                            'url'   => [URL_HOME],
+                    ],
+                    [
+                            'label' => Yii::t('app', 'About'),
+                            'url'   => [URL_ABOUT],
+                    ],
+                    [
+                            'label' => Yii::t('app', 'Contact'),
+                            'url'   => [URL_CONTACT],
+                    ],
+            ],
+    ]) ?>
+    <?= Nav::widget([
+            'options' => [
+                    'class' => [
+                            'navbar-nav',
+                            'ms-auto',
+                    ],
+            ],
+            'items'   => [
+                    [
+                            'label'   => Yii::t('app', 'Login'),
+                            'url'     => [URL_AUTH_LOGIN],
+                            'visible' => Yii::$app->user->isGuest,
+                    ],
+                    [
+                            'label'       => Yii::t('app', 'Logout (:username)', ['username' => Yii::$app->user->identity?->username]),
+                            'url'         => [URL_AUTH_LOGOUT],
+                            'visible'     => !Yii::$app->user->isGuest,
+                            'linkOptions' => [
+                                    'data-method' => 'post',
+                            ],
+                    ],
+            ],
+    ]) ?>
+    <?php NavBar::end(); ?>
 </header>
 
 <main id="main" class="flex-shrink-0" role="main">

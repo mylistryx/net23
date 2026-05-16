@@ -28,6 +28,7 @@
     "yiisoft/yii2-symfonymailer": "~4.0.0",
     "ramsey/uuid": "^4.9",
     "ext-curl": "*",
+    "ext-http": "*",
     "ext-intl": "*",
     "ext-json": "*",
     "ext-pdo": "*",

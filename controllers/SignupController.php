@@ -3,7 +3,6 @@
 namespace app\controllers;
 
 use app\components\controllers\WebController;
-use app\forms\PasswordReset\RequestPasswordResetForm;
 use app\forms\Signup\CompleteSignupForm;
 use app\forms\Signup\RequestSignupForm;
 use Yii;
@@ -28,12 +27,22 @@ final class SignupController extends WebController
     public function actionComplete(): Response
     {
         $model = new CompleteSignupForm;
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
 
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $model->createIdentity();
+            $this->success('Signup completed successfully');
         }
 
         return $this->render('complete', [
             'model' => $model,
         ]);
+    }
+
+    public function actionConfirmEmail(string $token): Response
+    {
+        $model = new ConfirmEmailForm($token);
+
+        $this->success('Email confirmed', $model->tCategory);
+        return $this->goHome();
     }
 }

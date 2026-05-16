@@ -5,7 +5,7 @@
  * @var ContactForm $model
  */
 
-use app\forms\ContactForm;
+use app\forms\Site\ContactForm;
 use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
 use yii\captcha\Captcha;
