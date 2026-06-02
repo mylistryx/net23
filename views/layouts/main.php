@@ -68,6 +68,11 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
             ],
             'items'   => [
                     [
+                            'label'   => Yii::t('app', 'Signup'),
+                            'url'     => [URL_SIGNUP_REQUEST],
+                            'visible' => Yii::$app->user->isGuest,
+                    ],
+                    [
                             'label'   => Yii::t('app', 'Login'),
                             'url'     => [URL_AUTH_LOGIN],
                             'visible' => Yii::$app->user->isGuest,

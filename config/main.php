@@ -1,6 +1,7 @@
 <?php
 
 use app\components\user\WebUser;
+use yii\i18n\PhpMessageSource;
 use yii\log\FileTarget;
 use yii\redis\Cache;
 
@@ -12,6 +13,13 @@ return [
     ],
     'bootstrap'  => ['log'],
     'components' => [
+        'i18n'  => [
+            'translations' => [
+                '*' => [
+                    'class' => PhpMessageSource::class,
+                ],
+            ],
+        ],
         'cache' => [
             'class' => Cache::class,
         ],

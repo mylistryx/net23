@@ -4,7 +4,7 @@
  * @var Identity $user
  */
 
-use app\models\Identity;
+use app\models\Identity\Identity;
 use yii\web\View;
 
 $verifyLink = Yii::$app->urlManager->createAbsoluteUrl(['site/verify-email', 'token' => $user->verification_token]);

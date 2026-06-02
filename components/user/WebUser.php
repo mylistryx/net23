@@ -2,7 +2,7 @@
 
 namespace app\components\user;
 
-use app\models\Identity;
+use app\models\Identity\Identity;
 use yii\web\User;
 
 /**

@@ -1,6 +1,6 @@
 <?php
 
-use app\models\Identity;
+use app\models\Identity\Identity;
 
 class LoginFormCest
 {

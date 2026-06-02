@@ -14,8 +14,8 @@ final class SignupController extends WebController
     {
         $model = new RequestSignupForm();
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-
+        if ($model->load(Yii::$app->request->post()) && $model->sendRequest()) {
+            return $this->info('Follow email instructions to complete signup', $model->tCategory)->goHome();
         }
 
         return $this->render('request', [
@@ -24,25 +24,12 @@ final class SignupController extends WebController
 
     }
 
-    public function actionComplete(): Response
+    public function actionComplete(string $token): Response
     {
-        $model = new CompleteSignupForm;
+        $model = new CompleteSignupForm($token);
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $model->createIdentity();
-            $this->success('Signup completed successfully');
-        }
+        $this->info('Signup complete!',$model->tCategory);
 
-        return $this->render('complete', [
-            'model' => $model,
-        ]);
-    }
-
-    public function actionConfirmEmail(string $token): Response
-    {
-        $model = new ConfirmEmailForm($token);
-
-        $this->success('Email confirmed', $model->tCategory);
-        return $this->goHome();
+        return Yii::$app->params['identity.autologinOnSignup'] ? $this->goHome() : $this->redirect([URL_AUTH_LOGIN]);
     }
 }

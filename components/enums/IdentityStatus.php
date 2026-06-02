@@ -10,5 +10,4 @@ enum IdentityStatus: int
 
     case Active = 100;
     case Inactive = 10;
-    case Deleted = 0;
 }

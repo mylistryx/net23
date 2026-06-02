@@ -14,10 +14,14 @@ final class PasswordResetController extends WebController
     {
         $model = new RequestPasswordResetForm();
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $model->sendRequest();
-            $this->info('Follow email instructions', $model->tCategory);
-            return $this->goHome();
+        if ($model->load(Yii::$app->request->post())) {
+
+            if ($model->sendRequest()) {
+                $this->info('Follow email instructions', $model->tCategory);
+                return $this->goHome();
+            }
+
+            $this->error('Validation failed', 'app');
         }
 
         return $this->render('request', [
@@ -25,17 +29,15 @@ final class PasswordResetController extends WebController
         ]);
     }
 
-    public function actionComplete(): Response
+    public function actionComplete(string $token): Response
     {
-        $model = new CompletePasswordResetForm();
+        $model = new CompletePasswordResetForm($token);
 
-        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
-            $model->resetPassword();
+        if ($model->load(Yii::$app->request->post()) && $model->resetPassword()) {
             $this->success('New password set', $model->tCategory);
             return $this->goHome();
         }
 
-        $this->error('Incorrect password reset token', $model->tCategory);
-        return $this->redirect('request');
+        return $this->render('complete');
     }
 }

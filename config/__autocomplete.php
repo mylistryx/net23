@@ -13,7 +13,7 @@ class Yii
 
 /**
  * @property DbManager $authManager
- * @property WebUser
+ * @property WebUser $user
  * @property Queue $queue
  * @property Redis $redis
  */

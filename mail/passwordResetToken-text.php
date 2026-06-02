@@ -1,10 +1,10 @@
 <?php
 /**
  * @var View $this
- * @var Identity $user
+ * @var \app\models\Identity\Identity $user
  */
 
-use app\models\Identity;
+use app\models\Identity\Identity;
 use yii\web\View;
 
 $resetLink = Yii::$app->urlManager->createAbsoluteUrl(['site/reset-password', 'token' => $user->password_reset_token]);

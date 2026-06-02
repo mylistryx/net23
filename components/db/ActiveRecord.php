@@ -7,6 +7,7 @@ use app\components\behaviors\UuidBehavior;
 use Exception;
 use Yii;
 use yii\db\ActiveRecord as BaseActiveRecord;
+use yii\helpers\ArrayHelper;
 
 /**
  * @inheritDoc
@@ -16,7 +17,12 @@ abstract class ActiveRecord extends BaseActiveRecord
     public bool $useUuidInsteadInt = false;
     public string|false $createdAtAttribute = false;
     public string|false $updatedAtAttribute = false;
-    public string|false $isActiveAttribute = false;
+    protected string|false $isActiveAttribute = false;
+
+    public function myBehaviors(): array
+    {
+        return [];
+    }
 
     /**
      * @return array
@@ -40,7 +46,12 @@ abstract class ActiveRecord extends BaseActiveRecord
             ];
         }
 
-        return $behaviors;
+        return ArrayHelper::merge($behaviors, $this->myBehaviors());
+    }
+
+    public function myRules(): array
+    {
+        return [];
     }
 
     /**
@@ -54,7 +65,7 @@ abstract class ActiveRecord extends BaseActiveRecord
             $rules[] = [$this->isActiveAttribute, 'required'];
             $rules[] = [$this->isActiveAttribute, 'boolean'];
         }
-        return $rules;
+        return ArrayHelper::merge($rules, $this->myRules());
     }
 
     public function attributeLabels(): array
@@ -71,7 +82,7 @@ abstract class ActiveRecord extends BaseActiveRecord
             $labels[$this->isActiveAttribute] = Yii::t('app', 'Is active');
         }
 
-        return $labels;
+        return ArrayHelper::merge($labels, $this->myRules());
     }
 
     /**

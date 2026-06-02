@@ -1,10 +1,10 @@
 <?php
 /**
  * @var View $this
- * @var Identity $user
+ * @var \app\models\Identity\Identity $user
  */
 
-use app\models\Identity;
+use app\models\Identity\Identity;
 use yii\helpers\Html;
 use yii\web\View;
 

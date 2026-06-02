@@ -13,7 +13,7 @@ return [
     'aliases'    => [
         '@tests' => '@app/tests',
     ],
-    'language'   => 'en-US',
+    'language'   => 'en',
     'components' => [
         'assetManager' => [
             'basePath' => dirname(__DIR__) . '/web/assets',

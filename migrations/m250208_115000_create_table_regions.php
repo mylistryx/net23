@@ -1,7 +1,7 @@
 <?php
 
+use app\components\enums\Tables;
 use app\components\migrations\Migration;
-use app\enums\Tables;
 
 class m250208_115000_create_table_regions extends Migration
 {
