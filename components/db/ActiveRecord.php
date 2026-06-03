@@ -5,6 +5,7 @@ namespace app\components\db;
 use app\components\behaviors\DateTimeBehavior;
 use app\components\behaviors\UuidBehavior;
 use Exception;
+use InvalidArgumentException;
 use Yii;
 use yii\db\ActiveRecord as BaseActiveRecord;
 use yii\helpers\ArrayHelper;
@@ -18,6 +19,7 @@ abstract class ActiveRecord extends BaseActiveRecord
     public string|false $createdAtAttribute = false;
     public string|false $updatedAtAttribute = false;
     protected string|false $isActiveAttribute = false;
+    protected bool $isActiveAttributeDefaultValue = false;
 
     public function myBehaviors(): array
     {
@@ -62,10 +64,15 @@ abstract class ActiveRecord extends BaseActiveRecord
         $rules = parent::rules();
 
         if ($this->isActiveAttribute) {
-            $rules[] = [$this->isActiveAttribute, 'required'];
             $rules[] = [$this->isActiveAttribute, 'boolean'];
+            $rules[] = [$this->isActiveAttribute, 'default', 'value' => $this->isActiveAttributeDefaultValue];
         }
         return ArrayHelper::merge($rules, $this->myRules());
+    }
+
+    public function myAttributeLabels(): array
+    {
+        return [];
     }
 
     public function attributeLabels(): array
@@ -82,22 +89,46 @@ abstract class ActiveRecord extends BaseActiveRecord
             $labels[$this->isActiveAttribute] = Yii::t('app', 'Is active');
         }
 
-        return ArrayHelper::merge($labels, $this->myRules());
+        return ArrayHelper::merge($labels, $this->myAttributeLabels());
     }
 
     /**
-     * @param string|null $isActiveAttribute
      * @return bool
-     * @throws Exception
      */
-    public function toggle(?string $isActiveAttribute = null): bool
+    public function toggle(): bool
     {
-        if ($isActiveAttribute && $this->hasAttribute($isActiveAttribute)) {
-            $currentStatus = $this->getAttribute($isActiveAttribute);
-            $this->setAttribute($isActiveAttribute, !$currentStatus);
-            return ($this->isAttributeChanged($isActiveAttribute) && $this->save());
+        if ($this->isActiveAttribute === false) {
+            throw new InvalidArgumentException('$isActiveAttribute is not set');
         }
 
-        return false;
+        $this->isActive() ? $this->setInactive() : $this->setActive();
+        return $this->isActive();
+    }
+
+    public function setActive(): void
+    {
+        if ($this->isActiveAttribute === false) {
+            throw new InvalidArgumentException('$isActiveAttribute is not set');
+        }
+
+        $this->setAttribute($this->isActiveAttribute, true);
+    }
+
+    public function setInactive(): void
+    {
+        if ($this->isActiveAttribute === false) {
+            throw new InvalidArgumentException('$isActiveAttribute is not set');
+        }
+
+        $this->setAttribute($this->isActiveAttribute, false);
+    }
+
+    public function isActive(): bool
+    {
+        if ($this->isActiveAttribute === false) {
+            throw new InvalidArgumentException('$isActiveAttribute is not set');
+        }
+
+        return (bool)$this->getAttribute($this->isActiveAttribute);
     }
 }

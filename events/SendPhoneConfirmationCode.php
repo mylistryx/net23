@@ -4,7 +4,7 @@ namespace app\events;
 
 use yii\base\Component;
 
-class SendPasswordResetToken extends Component
+class SendPhoneConfirmationCode extends Component
 {
 
 }

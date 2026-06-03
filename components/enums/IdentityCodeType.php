@@ -4,10 +4,11 @@ namespace app\components\enums;
 
 use app\components\traits\EnumToArrayTrait;
 
-enum IdentityStatus: int
+enum IdentityCodeType: int
 {
     use EnumToArrayTrait;
 
-    case Active = 100;
-    case Inactive = 0;
+    case Access = 1000;
+    case PasswordReset = 100;
+    case Verification = 200;
 }

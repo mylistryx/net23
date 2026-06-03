@@ -3,16 +3,16 @@
 use app\components\enums\Tables;
 use app\components\migrations\Migration;
 
-class m250208_115000_create_table_regions extends Migration
+class m250208_115000_create_table_region extends Migration
 {
     public function safeUp(): void
     {
         $this->createTable(Tables::Region->value, [
-            'id'   => $this->string(2)->notNull()->append('PRIMARY KEY'),
+            'code' => $this->string(2)->notNull()->append('PRIMARY KEY'),
             'name' => $this->string(64)->notNull(),
         ]);
 
-        $this->batchInsert(Tables::Region->value, ['id', 'name'], [
+        $this->batchInsert(Tables::Region->value, ['code', 'name'], [
             ['01', 'Республика Адыгея (Адыгея)'],
             ['02', 'Республика Башкортостан'],
             ['03', 'Республика Бурятия'],

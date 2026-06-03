@@ -8,14 +8,15 @@ enum Tables: string
 {
     use EnumToArrayTrait;
 
-    case Region = 'region';
-    case Identity = 'identity';
-    case IdentitySignupRequest = 'identity_signup_request';
-    case IdentityPasswordResetRequest = 'identity_password_reset_request';
-    case IdentityAccessToken = 'identity_access_token';
-    case IdentityStatus = 'identity_status';
-    case IdentityProfile = 'identity_profile';
-
+    case Currency = 'currency';
+    case CurrencyRate = 'currency_rate';
     case File = 'file';
+
+    case Identity = 'identity';
+    case IdentityAvatar = 'identity_avatar';
+    case IdentityCode = 'identity_code';
+    case IdentityProfile = 'identity_profile';
+    case IdentityToken = 'identity_token';
+    case Region = 'region';
 
 }
