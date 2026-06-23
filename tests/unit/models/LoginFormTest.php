@@ -8,7 +8,7 @@ use Yii;
 
 class LoginFormTest extends Unit
 {
-    private $model;
+    private ?LoginByPhoneForm $model = null;
 
     protected function _after(): void
     {
