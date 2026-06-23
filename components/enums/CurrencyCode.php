@@ -4,12 +4,12 @@ namespace app\components\enums;
 
 use app\components\traits\EnumToArrayTrait;
 
-enum IdentityStatus: int
+enum CurrencyCode: string
 {
     use EnumToArrayTrait;
 
-    case Active = 100;
-    case Inactive = 0;
-
-    case Banned = 400;
+    case USD = '$';
+    case EUR = '€';
+    case RUB = '₽';
+    case CNY = '¥';
 }

@@ -20,14 +20,16 @@
   "minimum-stability": "stable",
   "require": {
     "php": ">=8.5.0",
-    "yiisoft/yii2": "~2.0.55",
-    "yiisoft/yii2-bootstrap5": "~2.0.51",
-    "yiisoft/yii2-imagine": "~2.3.1",
-    "yiisoft/yii2-queue": "~2.3.8",
-    "yiisoft/yii2-redis": "~2.1.2",
-    "yiisoft/yii2-symfonymailer": "~4.0.0",
-    "mylistryx/yii2-fontawesome-pro": "~7.1.0",
-    "ramsey/uuid": "~4.9.2",
+    "yiisoft/yii2": ">=2.0.55",
+    "yiisoft/yii2-bootstrap5": ">=2.0.51",
+    "yiisoft/yii2-imagine": ">=2.3.1",
+    "yiisoft/yii2-queue": ">=2.3.8",
+    "yiisoft/yii2-redis": ">=2.1.2",
+    "yiisoft/yii2-symfonymailer": ">=4.0.0",
+    "mylistryx/yii2-fontawesome-pro": ">=7.1.0",
+    "bower-asset/intl-tel-input": "v16.1.0",
+    "giggsey/libphonenumber-for-php": "8.13.55",
+    "ramsey/uuid": ">=4.9.2",
     "ext-curl": "*",
     "ext-intl": "*",
     "ext-json": "*",
@@ -37,16 +39,16 @@
     "ext-zip": "*"
   },
   "require-dev": {
-    "yiisoft/yii2-debug": "~2.1.28",
-    "yiisoft/yii2-gii": "~2.2.7",
-    "yiisoft/yii2-faker": "~2.0.5",
-    "codeception/codeception": "~5.3.5",
-    "codeception/lib-innerbrowser": "~4.1.0",
-    "codeception/module-asserts": "~3.3.0",
-    "codeception/module-yii2": "~v2.0.5",
-    "codeception/module-filesystem": "~3.0.2",
-    "codeception/verify": "~3.4.0",
-    "larapack/dd": "~1.1"
+    "yiisoft/yii2-debug": ">=2.1.28",
+    "yiisoft/yii2-gii": ">=2.2.7",
+    "yiisoft/yii2-faker": ">=2.0.5",
+    "codeception/codeception": ">=5.3.5",
+    "codeception/lib-innerbrowser": ">=4.1.0",
+    "codeception/module-asserts": ">=3.3.0",
+    "codeception/module-yii2": ">=v2.0.5",
+    "codeception/module-filesystem": ">=3.0.2",
+    "codeception/verify": ">=3.4.0",
+    "larapack/dd": ">=1.1"
   },
   "config": {
     "allow-plugins": {
@@ -55,6 +57,11 @@
     "process-timeout": 1800,
     "fxp-asset": {
       "enabled": false
+    }
+  },
+  "autoload": {
+    "psr-4": {
+      "yii\\validators\\PhoneValidator\\": "plugins/PhoneValidator/src/"
     }
   },
   "scripts": {

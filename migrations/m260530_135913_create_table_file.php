@@ -7,7 +7,7 @@ class m260530_135913_create_table_file extends Migration
 {
     public function safeUp(): void
     {
-        $this->createTable(Tables::File->value, [
+        $this->createTable(Tables::File, [
             'id'          => $this->uuidPK(),
             'identity_id' => $this->uuid()->null(),
             'name'        => $this->string()->notNull(),
@@ -24,6 +24,6 @@ class m260530_135913_create_table_file extends Migration
 
     public function safeDown(): void
     {
-        $this->dropTable(Tables::File->value);
+        $this->dropTable(Tables::File);
     }
 }

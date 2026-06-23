@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use app\components\controllers\WebController;
-use app\forms\Auth\LoginForm;
+use app\forms\Auth\LoginByPhoneForm;
 use Yii;
 use yii\web\Response;
 
@@ -15,7 +15,7 @@ final class AuthController extends WebController
             return $this->goHome();
         }
 
-        $model = new LoginForm();
+        $model = new LoginByPhoneForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         }

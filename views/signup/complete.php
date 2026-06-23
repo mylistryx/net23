@@ -1,10 +1,10 @@
 <?php
 /**
  * @var $this View
- * @var $model CompleteSignupForm
+ * @var $model CompleteSignupByPhoneForm
  */
 
-use app\forms\Signup\CompleteSignupForm;
+use app\forms\Signup\CompleteSignupByPhoneForm;
 use yii\web\View;
 
 $this->title = 'Complete signup';

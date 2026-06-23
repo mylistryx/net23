@@ -2,10 +2,10 @@
 /**
  * @var View $this
  * @var ActiveForm $form
- * @var LoginForm $model
+ * @var LoginByPhoneForm $model
  */
 
-use app\forms\Auth\LoginForm;
+use app\forms\Auth\LoginByPhoneForm;
 use yii\bootstrap5\ActiveForm;
 use yii\bootstrap5\Html;
 use yii\web\View;

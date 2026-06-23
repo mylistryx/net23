@@ -7,12 +7,12 @@ class m250208_115000_create_table_region extends Migration
 {
     public function safeUp(): void
     {
-        $this->createTable(Tables::Region->value, [
-            'code' => $this->string(2)->notNull()->append('PRIMARY KEY'),
-            'name' => $this->string(64)->notNull(),
+        $this->createTable(Tables::Region, [
+            'code' => $this->stringPk(2),
+            'name' => $this->string()->notNull(),
         ]);
 
-        $this->batchInsert(Tables::Region->value, ['code', 'name'], [
+        $this->batchInsert(Tables::Region, ['code', 'name'], [
             ['01', 'Республика Адыгея (Адыгея)'],
             ['02', 'Республика Башкортостан'],
             ['03', 'Республика Бурятия'],
@@ -108,6 +108,6 @@ class m250208_115000_create_table_region extends Migration
 
     public function safeDown(): void
     {
-        $this->dropTable(Tables::Region->value);
+        $this->dropTable(Tables::Region);
     }
 }

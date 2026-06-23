@@ -3,8 +3,8 @@
 namespace app\controllers;
 
 use app\components\controllers\WebController;
-use app\forms\Signup\CompleteSignupForm;
-use app\forms\Signup\RequestSignupForm;
+use app\forms\Signup\CompleteSignupByPhoneForm;
+use app\forms\Signup\RequestSignupByPhoneForm;
 use Yii;
 use yii\web\Response;
 
@@ -12,7 +12,7 @@ final class SignupController extends WebController
 {
     public function actionRequest(): Response
     {
-        $model = new RequestSignupForm();
+        $model = new RequestSignupByPhoneForm();
 
         if ($model->load(Yii::$app->request->post()) && $model->sendRequest()) {
             return $this->info('Follow email instructions to complete signup', $model->tCategory)->goHome();
@@ -26,7 +26,7 @@ final class SignupController extends WebController
 
     public function actionComplete(string $token): Response
     {
-        $model = new CompleteSignupForm($token);
+        $model = new CompleteSignupByPhoneForm($token);
 
         $this->info('Signup complete!',$model->tCategory);
 

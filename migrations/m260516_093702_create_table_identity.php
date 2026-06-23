@@ -7,7 +7,7 @@ class m260516_093702_create_table_identity extends Migration
 {
     public function safeUp(): void
     {
-        $this->createTable(Tables::Identity->value, [
+        $this->createTable(Tables::Identity, [
             'id'            => $this->uuidPK(),
             'email'         => $this->string()->null()->unique(),
             'phone'         => $this->string()->null()->unique(),
@@ -20,6 +20,6 @@ class m260516_093702_create_table_identity extends Migration
 
     public function safeDown(): void
     {
-        $this->dropTable(Tables::Identity->value);
+        $this->dropTable(Tables::Identity);
     }
 }

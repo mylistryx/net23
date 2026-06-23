@@ -7,7 +7,7 @@ class m260603_100803_create_table_identity_token extends Migration
 {
     public function safeUp(): void
     {
-        $this->createTable(Tables::IdentityToken->value, [
+        $this->createTable(Tables::IdentityToken, [
             'id'          => $this->primaryKey(),
             'identity_id' => $this->uuid(true),
             'token'       => $this->string()->notNull(),
@@ -20,6 +20,6 @@ class m260603_100803_create_table_identity_token extends Migration
 
     public function safeDown(): void
     {
-        $this->dropTable(Tables::IdentityToken->value);
+        $this->dropTable(Tables::IdentityToken);
     }
 }

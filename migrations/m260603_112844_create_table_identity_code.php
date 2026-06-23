@@ -7,7 +7,7 @@ class m260603_112844_create_table_identity_code extends Migration
 {
     public function safeUp(): void
     {
-        $this->createTable(Tables::IdentityCode->value, [
+        $this->createTable(Tables::IdentityCode, [
             'id'          => $this->primaryKey(),
             'identity_id' => $this->uuid(true),
             'code'        => $this->string()->notNull(),
@@ -20,6 +20,6 @@ class m260603_112844_create_table_identity_code extends Migration
 
     public function safeDown(): void
     {
-        $this->dropTable(Tables::IdentityCode->value);
+        $this->dropTable(Tables::IdentityCode);
     }
 }

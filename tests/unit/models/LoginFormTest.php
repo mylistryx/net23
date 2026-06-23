@@ -2,7 +2,7 @@
 
 namespace tests\unit\models;
 
-use app\forms\Auth\LoginForm;
+use app\forms\Auth\LoginByPhoneForm;
 use Codeception\Test\Unit;
 use Yii;
 
@@ -17,7 +17,7 @@ class LoginFormTest extends Unit
 
     public function testLoginNoUser(): void
     {
-        $this->model = new LoginForm([
+        $this->model = new LoginByPhoneForm([
             'username' => 'not_existing_username',
             'password' => 'not_existing_password',
         ]);
@@ -28,7 +28,7 @@ class LoginFormTest extends Unit
 
     public function testLoginWrongPassword(): void
     {
-        $this->model = new LoginForm([
+        $this->model = new LoginByPhoneForm([
             'username' => 'demo',
             'password' => 'wrong_password',
         ]);
@@ -40,7 +40,7 @@ class LoginFormTest extends Unit
 
     public function testLoginCorrect(): void
     {
-        $this->model = new LoginForm([
+        $this->model = new LoginByPhoneForm([
             'username' => 'demo',
             'password' => 'demo',
         ]);

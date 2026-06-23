@@ -7,7 +7,7 @@ class m260603_113301_create_table_identity_profile extends Migration
 {
     public function safeUp(): void
     {
-        $this->createTable(Tables::IdentityProfile->value, [
+        $this->createTable(Tables::IdentityProfile, [
             'identity_id'    => $this->uuidPK(),
             'currency_code'  => $this->string(3)->notNull(),
             'region_code'    => $this->string(2)->notNull(),
@@ -28,6 +28,6 @@ class m260603_113301_create_table_identity_profile extends Migration
 
     public function safeDown(): void
     {
-        $this->dropTable(Tables::IdentityProfile->value);
+        $this->dropTable(Tables::IdentityProfile);
     }
 }

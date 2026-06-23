@@ -2,9 +2,16 @@
 
 namespace app\models\Currency;
 
+use app\components\behaviors\DateBehavior;
 use app\components\db\ActiveRecord;
+use app\components\enums\CurrencyCode;
 use app\components\enums\Tables;
 
+/**
+ * @property string $code
+ * @property float $rate
+ * @property string $date
+ */
 final class Currency extends ActiveRecord
 {
     public static function tableName(): string
@@ -12,12 +19,23 @@ final class Currency extends ActiveRecord
         return Tables::Currency->value;
     }
 
+    public function myBehaviors(): array
+    {
+        return [
+            'Date' => [
+                'class'              => DateBehavior::class,
+                'createdAtAttribute' => 'date',
+                'updatedAtAttribute' => false,
+            ],
+        ];
+    }
+
     public function rules(): array
     {
         return [
-            [['code', 'name'], 'required'],
-            [['code', 'name'], 'string'],
-            [['code', 'name'], 'unique', 'targetAttribute' => ['code', 'name']],
+            [['code', 'rate'], 'required'],
+            [['rate'], 'number'],
+            [['code'], 'in', 'range' => CurrencyCode::names()],
         ];
     }
 }
