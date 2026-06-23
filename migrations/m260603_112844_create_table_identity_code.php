@@ -12,6 +12,7 @@ class m260603_112844_create_table_identity_code extends Migration
             'identity_id' => $this->uuid(true),
             'code'        => $this->string()->notNull(),
             'code_type'   => $this->integer()->notNull(),
+            'created_at'  => $this->dateTime()->notNull(),
             'updated_at'  => $this->dateTime()->notNull(),
         ]);
 

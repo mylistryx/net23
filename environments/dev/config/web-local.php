@@ -1,4 +1,4 @@
-<?php
+?php
 
 use yii\debug\Module as DebugModule;
 use yii\gii\Module as GiiModule;

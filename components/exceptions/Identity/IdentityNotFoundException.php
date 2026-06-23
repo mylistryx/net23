@@ -1,6 +1,6 @@
 <?php
 
-namespace app\exceptions\Identity;
+namespace app\components\exceptions\Identity;
 
 use yii\base\UserException;
 

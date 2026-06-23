@@ -8,6 +8,8 @@ use app\components\interfaces\IdentityPasswordInterface;
 use app\components\traits\Identity\IdentityPasswordTrait;
 use app\components\traits\Identity\IdentityRepositoryTrait;
 use app\components\traits\Identity\IdentityTrait;
+use Yii;
+use yii\base\Exception;
 use yii\web\IdentityInterface;
 
 /**
@@ -43,6 +45,18 @@ class Identity extends ActiveRecord implements IdentityInterface, IdentityPasswo
     public static function tableName(): string
     {
         return Tables::Identity->value;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function rules(): array
+    {
+        return [
+            [['auth_key'], 'default', 'value' => Yii::$app->security->generateRandomString()],
+            [['auth_key'], 'string', 'length' => 32],
+            [['auth_key'], 'unique'],
+        ];
     }
 
 }

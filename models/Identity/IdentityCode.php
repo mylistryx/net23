@@ -5,6 +5,7 @@ namespace app\models\Identity;
 use app\components\db\ActiveRecord;
 use app\components\enums\IdentityCodeType;
 use app\components\enums\Tables;
+use Yii;
 use yii\db\ActiveQuery;
 
 /**
@@ -23,11 +24,23 @@ use yii\db\ActiveQuery;
  */
 final class IdentityCode extends ActiveRecord
 {
+    public false|string $createdAtAttribute = 'created_at';
     public false|string $updatedAtAttribute = 'updated_at';
 
     public static function tableName(): string
     {
         return Tables::IdentityCode->value;
+    }
+
+    public function rules(): array
+    {
+        return [
+            [['identity_id', 'code_type'], 'required'],
+            [['identity_id', 'code_type'], 'integer'],
+            [['code_type'], 'in', 'range', IdentityCodeType::values()],
+            [['code'], 'default', 'value' => YII_ENV_DEV ? Yii::$app->params['identity.code.dev'] : rand(Yii::$app->params['identity.code.min'], Yii::$app->params['identity.code.max'])],
+            [['code'], 'number', 'min' => Yii::$app->params['identity.code.min'], 'max' => Yii::$app->params['identity.code.max']],
+        ];
     }
 
     public function getIdentity(): ActiveQuery

@@ -4,9 +4,9 @@ namespace app\components\traits\Identity;
 
 use app\components\enums\IdentityStatus;
 use app\components\enums\IdentityTokenType;
-use app\exceptions\Identity\IdentityBannedException;
-use app\exceptions\Identity\IdentityNotActiveException;
-use app\exceptions\Identity\IdentityNotFoundException;
+use app\components\exceptions\Identity\IdentityBannedException;
+use app\components\exceptions\Identity\IdentityNotActiveException;
+use app\components\exceptions\Identity\IdentityNotFoundException;
 use app\models\Identity\Identity;
 use app\models\Identity\IdentityToken;
 
@@ -57,22 +57,22 @@ trait IdentityRepositoryTrait
     }
 
     /**
-     * @throws IdentityNotActiveException
+     * @throws \app\components\exceptions\Identity\IdentityNotActiveException
      */
     private static function checkIsActive(Identity $identity): void
     {
         if ($identity->status !== IdentityStatus::Active) {
-            throw new IdentityNotActiveException();
+            throw new \app\components\exceptions\Identity\IdentityNotActiveException();
         }
     }
 
     /**
-     * @throws IdentityBannedException
+     * @throws \app\components\exceptions\Identity\IdentityBannedException
      */
     private static function checkIsBanned(Identity $identity): void
     {
         if ($identity->status === IdentityStatus::Banned) {
-            throw new IdentityBannedException();
+            throw new \app\components\exceptions\Identity\IdentityBannedException();
         }
     }
 
