@@ -2,9 +2,7 @@
 
 namespace app\components\exceptions\Identity;
 
-use yii\base\UserException;
-
-class IdentityNotFoundException extends UserException
+class IdentityNotFoundException extends IdentityException
 {
 
 }

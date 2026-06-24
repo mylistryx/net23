@@ -8,7 +8,6 @@ class IdentityBuilder
 {
     private ?string $phone = null;
     private ?string $email = null;
-
     private ?string $password = null;
     private ?string $authKey = null;
 

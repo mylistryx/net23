@@ -4,8 +4,12 @@ namespace app\components\db;
 
 use app\components\behaviors\DateTimeBehavior;
 use app\components\behaviors\UuidBehavior;
+use app\components\exceptions\Database\ModelInsertException;
+use app\components\exceptions\Database\ModelUpdateException;
+use app\components\exceptions\Validation\ModelValidationException;
 use Exception;
 use InvalidArgumentException;
+use Throwable;
 use Yii;
 use yii\db\ActiveRecord as BaseActiveRecord;
 use yii\helpers\ArrayHelper;
@@ -130,5 +134,54 @@ abstract class ActiveRecord extends BaseActiveRecord
         }
 
         return (bool)$this->getAttribute($this->isActiveAttribute);
+    }
+
+    /**
+     * @throws Throwable
+     */
+    public function saveOrFail(bool $runValidation = true, ?array $attributes = null): bool
+    {
+        return $this->isNewRecord ? $this->insert($runValidation, $attributes) : $this->update($runValidation, $attributes);
+    }
+
+    public function validateOrFail(null|string|array $attributeNames = null, bool $clearErrors = true): bool
+    {
+        if (!parent::validate($attributeNames, $clearErrors)) {
+            throw new ModelValidationException('Validation failed');
+        }
+
+        return true;
+    }
+
+    /**
+     * @throws Throwable
+     */
+    public function insertOrFail(bool $runValidation = true, ?array $attributes = null): bool
+    {
+        if ($runValidation) {
+            $this->validateOrFail($attributes);
+        }
+
+        if (!parent::insert(false, $attributes)) {
+            throw new ModelInsertException('Insert failed');
+        }
+
+        return true;
+    }
+
+    /**
+     * @throws Throwable
+     */
+    public function updateOrFail(bool $runValidation = true, ?array $attributes = null): bool
+    {
+        if ($runValidation) {
+            $this->validateOrFail($attributes);
+        }
+
+        if (!parent::update(false, $attributes)) {
+            throw new ModelUpdateException('Update failed');
+        }
+
+        return true;
     }
 }
