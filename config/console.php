@@ -8,12 +8,19 @@ return [
     'basePath'            => dirname(__DIR__),
     'controllerNamespace' => 'app\console',
     'controllerMap'       => [
-        'fixture' => [
+        'fixture'      => [
             'class' => FixtureController::class,
         ],
-        'migrate' => [
+        'migrate'      => [
             'class'        => MigrateController::class,
             'templateFile' => '@app/components/migrations/views/migration.php',
+        ],
+        'migrate-view' => [
+            'class'                  => MigrateController::class,
+            'migrationPath'          => ['@app/migrations/views'],
+            'migrationTable'         => '{{%migration_view}}',
+            'templateFile'           => '@app/components/migrations/views/migration-view.php',
+            'generatorTemplateFiles' => [],
         ],
     ],
 ];

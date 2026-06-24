@@ -6,7 +6,6 @@ use app\components\enums\Tables;
 use BackedEnum;
 use Throwable;
 use yii\db\ColumnSchemaBuilder;
-use yii\db\Query;
 use yii\helpers\Console;
 use yii\helpers\Inflector;
 
